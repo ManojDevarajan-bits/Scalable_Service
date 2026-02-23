@@ -2,3 +2,32 @@
   <h1>Welcome to Manoj Assignment</h1>
   <p>Glad to have you here!</p>
 </div>
+
+<div class="todo-container">
+  <h2>To-Do List</h2>
+
+  <form class="todo-form" (submit)="$event.preventDefault(); addTodo()">
+    <input
+      #todoInput
+      class="todo-input"
+      type="text"
+      [value]="newTodo"
+      (input)="newTodo = todoInput.value"
+      placeholder="Add a new task"
+      aria-label="New todo"
+    />
+    <button class="btn" type="submit">Add</button>
+  </form>
+
+  <ul class="todo-list">
+    <li *ngFor="let t of todos" [class.done]="t.done">
+      <label>
+        <input type="checkbox" [checked]="t.done" (change)="toggleDone(t)" />
+        <span class="text">{{ t.text }}</span>
+      </label>
+      <button class="remove" (click)="removeTodo(t.id)" aria-label="Remove">×</button>
+    </li>
+  </ul>
+
+  <p *ngIf="todos.length === 0" class="empty">No todos yet — add one!</p>
+</div>
